@@ -155,7 +155,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DetallesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Int_ClientesController.cs" />
+    <Compile Include="Controllers\LaboratoriosController.cs" />
     <Compile Include="Controllers\RecepcionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -250,6 +253,21 @@
     <Content Include="Views\Recepcions\Details.cshtml" />
     <Content Include="Views\Recepcions\Edit.cshtml" />
     <Content Include="Views\Recepcions\Index.cshtml" />
+    <Content Include="Views\Laboratorios\Create.cshtml" />
+    <Content Include="Views\Laboratorios\Delete.cshtml" />
+    <Content Include="Views\Laboratorios\Details.cshtml" />
+    <Content Include="Views\Laboratorios\Edit.cshtml" />
+    <Content Include="Views\Laboratorios\Index.cshtml" />
+    <Content Include="Views\Int_Clientes\Create.cshtml" />
+    <Content Include="Views\Int_Clientes\Delete.cshtml" />
+    <Content Include="Views\Int_Clientes\Details.cshtml" />
+    <Content Include="Views\Int_Clientes\Edit.cshtml" />
+    <Content Include="Views\Int_Clientes\Index.cshtml" />
+    <Content Include="Views\Detalles\Create.cshtml" />
+    <Content Include="Views\Detalles\Delete.cshtml" />
+    <Content Include="Views\Detalles\Details.cshtml" />
+    <Content Include="Views\Detalles\Edit.cshtml" />
+    <Content Include="Views\Detalles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

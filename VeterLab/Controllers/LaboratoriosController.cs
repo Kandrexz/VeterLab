@@ -10,116 +10,107 @@ using VeterLab.Models;
 
 namespace VeterLab.Controllers
 {
-    public class RecepcionsController : Controller
+    public class LaboratoriosController : Controller
     {
         private PARCIAL2Entities db = new PARCIAL2Entities();
 
-        // GET: Recepcions
+        // GET: Laboratorios
         public ActionResult Index()
         {
-            var recepcions = db.Recepcions.Include(r => r.Int_Clientes).Include(r => r.Laboratorio);
-            return View(recepcions.ToList());
+            return View(db.Laboratorios.ToList());
         }
 
-        // GET: Recepcions/Details/5
+        // GET: Laboratorios/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recepcion recepcion = db.Recepcions.Find(id);
-            if (recepcion == null)
+            Laboratorio laboratorio = db.Laboratorios.Find(id);
+            if (laboratorio == null)
             {
                 return HttpNotFound();
             }
-            return View(recepcion);
+            return View(laboratorio);
         }
 
-        // GET: Recepcions/Create
+        // GET: Laboratorios/Create
         public ActionResult Create()
         {
-            ViewBag.Rut = new SelectList(db.Int_Clientes, "Rut", "Rut");
-            ViewBag.LabId = new SelectList(db.Laboratorios, "Id", "Nombre");
             return View();
         }
 
-        // POST: Recepcions/Create
+        // POST: Laboratorios/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Rut,LabId,Folio,FechaRecepcion,FechaEntrega,Localidad,CantidadMuestras")] Recepcion recepcion)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Mail,Direccion")] Laboratorio laboratorio)
         {
             if (ModelState.IsValid)
             {
-                db.Recepcions.Add(recepcion);
+                db.Laboratorios.Add(laboratorio);
                 db.SaveChanges();
-                return RedirectToAction("Index","Detalles");
+                return RedirectToAction("Index");
             }
 
-            ViewBag.Rut = new SelectList(db.Int_Clientes, "Rut", "Nombre", recepcion.Rut);
-            ViewBag.LabId = new SelectList(db.Laboratorios, "Id", "Nombre", recepcion.LabId);
-            return View(recepcion);
+            return View(laboratorio);
         }
 
-        // GET: Recepcions/Edit/5
+        // GET: Laboratorios/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recepcion recepcion = db.Recepcions.Find(id);
-            if (recepcion == null)
+            Laboratorio laboratorio = db.Laboratorios.Find(id);
+            if (laboratorio == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Rut = new SelectList(db.Int_Clientes, "Rut", "Nombre", recepcion.Rut);
-            ViewBag.LabId = new SelectList(db.Laboratorios, "Id", "Nombre", recepcion.LabId);
-            return View(recepcion);
+            return View(laboratorio);
         }
 
-        // POST: Recepcions/Edit/5
+        // POST: Laboratorios/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Rut,LabId,Folio,FechaRecepcion,FechaEntrega,Localidad,CantidadMuestras")] Recepcion recepcion)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,Mail,Direccion")] Laboratorio laboratorio)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(recepcion).State = EntityState.Modified;
+                db.Entry(laboratorio).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Rut = new SelectList(db.Int_Clientes, "Rut", "Nombre", recepcion.Rut);
-            ViewBag.LabId = new SelectList(db.Laboratorios, "Id", "Nombre", recepcion.LabId);
-            return View(recepcion);
+            return View(laboratorio);
         }
 
-        // GET: Recepcions/Delete/5
+        // GET: Laboratorios/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recepcion recepcion = db.Recepcions.Find(id);
-            if (recepcion == null)
+            Laboratorio laboratorio = db.Laboratorios.Find(id);
+            if (laboratorio == null)
             {
                 return HttpNotFound();
             }
-            return View(recepcion);
+            return View(laboratorio);
         }
 
-        // POST: Recepcions/Delete/5
+        // POST: Laboratorios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Recepcion recepcion = db.Recepcions.Find(id);
-            db.Recepcions.Remove(recepcion);
+            Laboratorio laboratorio = db.Laboratorios.Find(id);
+            db.Laboratorios.Remove(laboratorio);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
