@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PARCIAL2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PARCIAL2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Int_Clientes">
           <Key>
             <PropertyRef Name="Rut" />
@@ -37,21 +37,6 @@
           <Property Name="Localidad" Type="nvarchar" MaxLength="50" />
           <Property Name="CantidadMuestras" Type="int" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'PARCIAL2.dbo.Detalle' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="Detalle">
-          <Key>
-            <PropertyRef Name="Folio" />
-            <PropertyRef Name="Rut" />
-            <PropertyRef Name="Nombre" />
-          </Key>
-          <Property Name="Folio" Type="int" Nullable="false" />
-          <Property Name="FechaRecepcion" Type="date" />
-          <Property Name="FechaEntrega" Type="date" />
-          <Property Name="Rut" Type="int" Nullable="false" />
-          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CantidadMuestras" Type="int" />
-        </EntityType>
         <Association Name="FK__Recepcion__LabId__1920BF5C">
           <End Role="Laboratorio" Type="Self.Laboratorio" Multiplicity="0..1" />
           <End Role="Recepcion" Type="Self.Recepcion" Multiplicity="*" />
@@ -80,16 +65,6 @@ advertencia 6002: La tabla o vista 'PARCIAL2.dbo.Detalle' no tiene definida ning
           <EntitySet Name="Int_Clientes" EntityType="Self.Int_Clientes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Laboratorio" EntityType="Self.Laboratorio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Recepcion" EntityType="Self.Recepcion" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Detalle" EntityType="Self.Detalle" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Detalle].[Folio] AS [Folio], 
-    [Detalle].[FechaRecepcion] AS [FechaRecepcion], 
-    [Detalle].[FechaEntrega] AS [FechaEntrega], 
-    [Detalle].[Rut] AS [Rut], 
-    [Detalle].[Nombre] AS [Nombre], 
-    [Detalle].[CantidadMuestras] AS [CantidadMuestras]
-    FROM [dbo].[Detalle] AS [Detalle]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__Recepcion__LabId__1920BF5C" Association="Self.FK__Recepcion__LabId__1920BF5C">
             <End Role="Laboratorio" EntitySet="Laboratorio" />
             <End Role="Recepcion" EntitySet="Recepcion" />
@@ -99,31 +74,43 @@ advertencia 6002: La tabla o vista 'PARCIAL2.dbo.Detalle' no tiene definida ning
             <End Role="Recepcion" EntitySet="Recepcion" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PARCIAL2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PARCIAL2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Int_Clientes" EntityType="PARCIAL2Model.Int_Clientes" />
+          <EntitySet Name="Laboratorios" EntityType="PARCIAL2Model.Laboratorio" />
+          <EntitySet Name="Recepcions" EntityType="PARCIAL2Model.Recepcion" />
+          <AssociationSet Name="FK__Recepcion__Rut__182C9B23" Association="PARCIAL2Model.FK__Recepcion__Rut__182C9B23">
+            <End Role="Int_Clientes" EntitySet="Int_Clientes" />
+            <End Role="Recepcion" EntitySet="Recepcions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recepcion__LabId__1920BF5C" Association="PARCIAL2Model.FK__Recepcion__LabId__1920BF5C">
+            <End Role="Laboratorio" EntitySet="Laboratorios" />
+            <End Role="Recepcion" EntitySet="Recepcions" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Int_Clientes">
           <Key>
             <PropertyRef Name="Rut" />
           </Key>
           <Property Name="Rut" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Giro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Fono" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Recepcions" Relationship="Self.FK__Recepcion__Rut__182C9B23" FromRole="Int_Clientes" ToRole="Recepcion" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Giro" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fono" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Recepcions" Relationship="PARCIAL2Model.FK__Recepcion__Rut__182C9B23" FromRole="Int_Clientes" ToRole="Recepcion" />
         </EntityType>
         <EntityType Name="Laboratorio">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Recepcions" Relationship="Self.FK__Recepcion__LabId__1920BF5C" FromRole="Laboratorio" ToRole="Recepcion" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Recepcions" Relationship="PARCIAL2Model.FK__Recepcion__LabId__1920BF5C" FromRole="Laboratorio" ToRole="Recepcion" />
         </EntityType>
         <EntityType Name="Recepcion">
           <Key>
@@ -137,25 +124,12 @@ advertencia 6002: La tabla o vista 'PARCIAL2.dbo.Detalle' no tiene definida ning
           <Property Name="FechaEntrega" Type="DateTime" Precision="0" />
           <Property Name="Localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CantidadMuestras" Type="Int32" />
-          <NavigationProperty Name="Int_Clientes" Relationship="Self.FK__Recepcion__Rut__182C9B23" FromRole="Recepcion" ToRole="Int_Clientes" />
-          <NavigationProperty Name="Laboratorio" Relationship="Self.FK__Recepcion__LabId__1920BF5C" FromRole="Recepcion" ToRole="Laboratorio" />
-        </EntityType>
-        <EntityType Name="Detalle">
-          <Key>
-            <PropertyRef Name="Folio" />
-            <PropertyRef Name="Rut" />
-            <PropertyRef Name="Nombre" />
-          </Key>
-          <Property Name="Folio" Type="Int32" Nullable="false" />
-          <Property Name="FechaRecepcion" Type="DateTime" Precision="0" />
-          <Property Name="FechaEntrega" Type="DateTime" Precision="0" />
-          <Property Name="Rut" Type="Int32" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CantidadMuestras" Type="Int32" />
+          <NavigationProperty Name="Int_Clientes" Relationship="PARCIAL2Model.FK__Recepcion__Rut__182C9B23" FromRole="Recepcion" ToRole="Int_Clientes" />
+          <NavigationProperty Name="Laboratorio" Relationship="PARCIAL2Model.FK__Recepcion__LabId__1920BF5C" FromRole="Recepcion" ToRole="Laboratorio" />
         </EntityType>
         <Association Name="FK__Recepcion__Rut__182C9B23">
-          <End Role="Int_Clientes" Type="Self.Int_Clientes" Multiplicity="0..1" />
-          <End Role="Recepcion" Type="Self.Recepcion" Multiplicity="*" />
+          <End Type="PARCIAL2Model.Int_Clientes" Role="Int_Clientes" Multiplicity="0..1" />
+          <End Type="PARCIAL2Model.Recepcion" Role="Recepcion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Int_Clientes">
               <PropertyRef Name="Rut" />
@@ -166,8 +140,8 @@ advertencia 6002: La tabla o vista 'PARCIAL2.dbo.Detalle' no tiene definida ning
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Recepcion__LabId__1920BF5C">
-          <End Role="Laboratorio" Type="Self.Laboratorio" Multiplicity="0..1" />
-          <End Role="Recepcion" Type="Self.Recepcion" Multiplicity="*" />
+          <End Type="PARCIAL2Model.Laboratorio" Role="Laboratorio" Multiplicity="0..1" />
+          <End Type="PARCIAL2Model.Recepcion" Role="Recepcion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Laboratorio">
               <PropertyRef Name="Id" />
@@ -177,20 +151,6 @@ advertencia 6002: La tabla o vista 'PARCIAL2.dbo.Detalle' no tiene definida ning
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PARCIAL2Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Int_Clientes" EntityType="Self.Int_Clientes" />
-          <EntitySet Name="Laboratorios" EntityType="Self.Laboratorio" />
-          <EntitySet Name="Recepcions" EntityType="Self.Recepcion" />
-          <EntitySet Name="Detalles" EntityType="Self.Detalle" />
-          <AssociationSet Name="FK__Recepcion__Rut__182C9B23" Association="Self.FK__Recepcion__Rut__182C9B23">
-            <End Role="Int_Clientes" EntitySet="Int_Clientes" />
-            <End Role="Recepcion" EntitySet="Recepcions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Recepcion__LabId__1920BF5C" Association="Self.FK__Recepcion__LabId__1920BF5C">
-            <End Role="Laboratorio" EntitySet="Laboratorios" />
-            <End Role="Recepcion" EntitySet="Recepcions" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -200,47 +160,35 @@ advertencia 6002: La tabla o vista 'PARCIAL2.dbo.Detalle' no tiene definida ning
           <EntitySetMapping Name="Int_Clientes">
             <EntityTypeMapping TypeName="PARCIAL2Model.Int_Clientes">
               <MappingFragment StoreEntitySet="Int_Clientes">
-                <ScalarProperty Name="Rut" ColumnName="Rut" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-                <ScalarProperty Name="Giro" ColumnName="Giro" />
                 <ScalarProperty Name="Fono" ColumnName="Fono" />
+                <ScalarProperty Name="Giro" ColumnName="Giro" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Rut" ColumnName="Rut" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Laboratorios">
             <EntityTypeMapping TypeName="PARCIAL2Model.Laboratorio">
               <MappingFragment StoreEntitySet="Laboratorio">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Mail" ColumnName="Mail" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Recepcions">
             <EntityTypeMapping TypeName="PARCIAL2Model.Recepcion">
               <MappingFragment StoreEntitySet="Recepcion">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Rut" ColumnName="Rut" />
-                <ScalarProperty Name="LabId" ColumnName="LabId" />
-                <ScalarProperty Name="Folio" ColumnName="Folio" />
-                <ScalarProperty Name="FechaRecepcion" ColumnName="FechaRecepcion" />
-                <ScalarProperty Name="FechaEntrega" ColumnName="FechaEntrega" />
+                <ScalarProperty Name="CantidadMuestras" ColumnName="CantidadMuestras" />
                 <ScalarProperty Name="Localidad" ColumnName="Localidad" />
-                <ScalarProperty Name="CantidadMuestras" ColumnName="CantidadMuestras" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Detalles">
-            <EntityTypeMapping TypeName="PARCIAL2Model.Detalle">
-              <MappingFragment StoreEntitySet="Detalle">
-                <ScalarProperty Name="Folio" ColumnName="Folio" />
-                <ScalarProperty Name="FechaRecepcion" ColumnName="FechaRecepcion" />
                 <ScalarProperty Name="FechaEntrega" ColumnName="FechaEntrega" />
+                <ScalarProperty Name="FechaRecepcion" ColumnName="FechaRecepcion" />
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="LabId" ColumnName="LabId" />
                 <ScalarProperty Name="Rut" ColumnName="Rut" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="CantidadMuestras" ColumnName="CantidadMuestras" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

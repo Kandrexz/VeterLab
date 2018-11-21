@@ -5,12 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="218b712db95d481a8a9a241379fe1e32" Name="Diagram1">
-        <EntityTypeShape EntityType="PARCIAL2Model.Int_Clientes" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARCIAL2Model.Laboratorio" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARCIAL2Model.Recepcion" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="PARCIAL2Model.Detalle" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <AssociationConnector Association="PARCIAL2Model.FK__Recepcion__Rut__182C9B23" ManuallyRouted="false" />
-        <AssociationConnector Association="PARCIAL2Model.FK__Recepcion__LabId__1920BF5C" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PARCIAL2Model.Int_Clientes" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="PARCIAL2Model.Laboratorio" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="PARCIAL2Model.Recepcion" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="PARCIAL2Model.FK__Recepcion__Rut__182C9B23" />
+        <AssociationConnector Association="PARCIAL2Model.FK__Recepcion__LabId__1920BF5C" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -28,6 +28,5 @@ namespace VeterLab.Models
         public virtual DbSet<Int_Clientes> Int_Clientes { get; set; }
         public virtual DbSet<Laboratorio> Laboratorios { get; set; }
         public virtual DbSet<Recepcion> Recepcions { get; set; }
-        public virtual DbSet<Detalle> Detalles { get; set; }
     }
 }

@@ -58,7 +58,7 @@ namespace VeterLab.Controllers
                 return RedirectToAction("Index","Detalles");
             }
 
-            ViewBag.Rut = new SelectList(db.Int_Clientes, "Rut", "Nombre", recepcion.Rut);
+            ViewBag.Rut = new SelectList(db.Int_Clientes, "Rut", "Rut", recepcion.Rut);
             ViewBag.LabId = new SelectList(db.Laboratorios, "Id", "Nombre", recepcion.LabId);
             return View(recepcion);
         }
